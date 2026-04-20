@@ -1,0 +1,27 @@
+{
+  "name": "Migraine Helper V5",
+  "short_name": "Migraine",
+  "description": "Cute offline migraine helper for little one with local insights, backup restore, and direct-launch pages.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#edf8ff",
+  "theme_color": "#d7ecff",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

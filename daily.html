@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#d7ecff" />
+  <title>Migraine Helper — Daily</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-direct-screen="daily">
+
+  <div class="float-bubble bubble-1"></div>
+  <div class="float-bubble bubble-2"></div>
+  <div class="float-bubble bubble-3"></div>
+  <div class="app-shell">
+    <header class="topbar fade-up">
+      <div>
+        <p class="eyebrow">direct launch page for little one</p>
+        <h1>🌼 Daily Routine</h1>
+        <p class="intro-line">pin this on Home Screen if little one wants one-tap access.</p>
+      </div>
+      <a class="ghost-btn" href="index.html">Main</a>
+    </header>
+    <main>
+      <section id="screen-home" class="screen"></section>
+      <section id="screen-log" class="screen">
+        <div class="card fade-up">
+          <div class="card-head">
+            <h2>📝 Log</h2>
+            <a class="ghost-btn small" href="index.html">Home</a>
+          </div>
+          <form id="logForm" class="stack">
+            <label><span>Date</span><input type="date" id="logDate" required /></label>
+            <label><span>Did little one have a migraine?</span>
+              <div class="segmented">
+                <input type="radio" name="hadMigraine" id="migraineYes" value="Yes" checked />
+                <label for="migraineYes">Yes</label>
+                <input type="radio" name="hadMigraine" id="migraineNo" value="No" />
+                <label for="migraineNo">No</label>
+              </div>
+            </label>
+            <label><span>Severity 1–10</span>
+              <input type="range" min="1" max="10" value="5" id="severityRange" />
+              <div class="range-row"><small>1</small><strong id="severityValue">5</strong><small>10</small></div>
+            </label>
+            <label><span>Possible trigger</span><input type="text" id="logTrigger" placeholder="Stress, sleep, skipped meal..." /></label>
+            <label><span>Notes</span><textarea id="logNotes" rows="4" placeholder="Anything little one wants to remember?"></textarea></label>
+            <div class="button-row">
+              <button type="submit" class="primary-btn">Save log</button>
+              <button type="button" class="secondary-btn" id="resetFormBtn">Reset form</button>
+            </div>
+          </form>
+        </div>
+        <div class="card fade-up delay-1">
+          <div class="card-head"><h3>Recent entries</h3><span class="pill" id="recentLogCount">0</span></div>
+          <div class="button-row compact">
+            <button type="button" class="secondary-btn" id="exportJsonBtn">Export JSON</button>
+            <button type="button" class="secondary-btn" id="exportCsvBtn">Export CSV</button>
+            <button type="button" class="danger-btn" id="clearLogsBtn">Clear all</button>
+          </div>
+          <div id="logList" class="list-stack empty-state">No logs yet.</div>
+        </div>
+      </section>
+      <section id="screen-attack" class="screen">
+        <div class="card fade-up">
+          <div class="card-head"><h2>🧊 Attack</h2><a class="ghost-btn small" href="index.html">Home</a></div>
+          <div class="checklist" id="attackChecklist">
+            <label class="check-item"><input type="checkbox" data-attack-item="Drink water" /> <span>Drink water</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Small caffeine if early" /> <span>Small caffeine if early</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Ice pack" /> <span>Ice pack</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Dark quiet room" /> <span>Dark quiet room</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Rest eyes" /> <span>Rest eyes</span></label>
+          </div>
+          <div class="timer-box cute-gradient pulse-soft">
+            <p class="hero-kicker">20 minute reset for little one</p>
+            <div id="timerDisplay" class="timer-display">20:00</div>
+            <div class="button-row">
+              <button type="button" class="primary-btn" id="timerStartBtn">Start timer</button>
+              <button type="button" class="secondary-btn" id="timerResetBtn">Reset</button>
+            </div>
+          </div>
+          <div class="info-note"><strong>Do Not Disturb:</strong> turn it on manually from Control Center if little one wants quiet.</div>
+        </div>
+      </section>
+      <section id="screen-daily" class="screen">
+        <div class="card fade-up">
+          <div class="card-head"><h2>🌼 Daily</h2><a class="ghost-btn small" href="index.html">Home</a></div>
+          <p class="tiny-note" id="dailyDateLabel"></p>
+          <div class="checklist" id="dailyChecklist">
+            <label class="check-item"><input type="checkbox" data-daily-item="Morning water" /> <span>Morning water</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Breakfast" /> <span>Breakfast</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Caffeine around 10 AM" /> <span>Caffeine around 10 AM</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Lunch" /> <span>Lunch</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Dinner" /> <span>Dinner</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Topiramate at night" /> <span>Topiramate at night</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Magnesium at night" /> <span>Magnesium at night</span></label>
+          </div>
+          <div class="button-row"><button type="button" class="secondary-btn" id="resetDailyBtn">Reset today</button></div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

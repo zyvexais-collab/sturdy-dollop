@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#d7ecff" />
+  <title>Migraine Helper V5</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="float-bubble bubble-1"></div>
+  <div class="float-bubble bubble-2"></div>
+  <div class="float-bubble bubble-3"></div>
+
+  <div class="app-shell">
+    <header class="topbar fade-up">
+      <div>
+        <p class="eyebrow">cute offline helper for little one</p>
+        <h1>🦋 Migraine Helper</h1>
+        <p class="intro-line">soft, simple, and ready when little one needs it.</p>
+      </div>
+      <button class="ghost-btn" id="installHintBtn" type="button">Install</button>
+    </header>
+
+    <main>
+      <section id="screen-home" class="screen active">
+        <div class="hero-card cute-gradient fade-up delay-1">
+          <div>
+            <p class="hero-kicker">Today for little one</p>
+            <h2 id="welcomeTitle">A gentle day starts here.</h2>
+            <p id="welcomeSubtitle">Track migraines, check routines, and keep quick relief one tap away.</p>
+          </div>
+          <div class="hero-badge">💜</div>
+        </div>
+
+        <div class="home-buttons fade-up delay-2">
+          <button class="big-action shimmer" data-screen="log">
+            <span class="emoji">📝</span>
+            <span>Log</span>
+            <small>Track a day</small>
+          </button>
+          <button class="big-action shimmer" data-screen="attack">
+            <span class="emoji">🧊</span>
+            <span>Attack</span>
+            <small>Lower it fast</small>
+          </button>
+          <button class="big-action shimmer" data-screen="daily">
+            <span class="emoji">🌼</span>
+            <span>Daily</span>
+            <small>Routine reset</small>
+          </button>
+        </div>
+
+        <div class="dashboard-grid fade-up delay-3">
+          <article class="card accent-card">
+            <div class="card-head">
+              <h3>Daily routine</h3>
+              <span class="pill" id="dailyProgressPill">0 / 7</span>
+            </div>
+            <p id="dailySummary">No items checked yet today.</p>
+          </article>
+
+          <article class="card accent-card-2">
+            <div class="card-head">
+              <h3>Tracker</h3>
+              <span class="pill" id="trackerCountPill">0 logs</span>
+            </div>
+            <p id="trackerSummary">No migraine logs yet.</p>
+          </article>
+
+          <article class="card accent-card-3">
+            <div class="card-head">
+              <h3>Lower it fast</h3>
+              <span class="pill">Quick help</span>
+            </div>
+            <p id="quickHelpText">Water, dim room, rest eyes, ice pack, and a small caffeine only if it’s early.</p>
+          </article>
+        </div>
+
+        <div class="card fade-up delay-4">
+          <div class="card-head">
+            <h3>AI-style insights</h3>
+            <span class="pill soft">local + private</span>
+          </div>
+          <p class="tiny-note">These are smart local patterns from saved logs only. No paid API. No account.</p>
+          <div id="insightsList" class="insight-list empty-state">Add a few logs and little one will start seeing gentle pattern notes here.</div>
+        </div>
+
+        <div class="card fade-up delay-4">
+          <div class="card-head">
+            <h3>Backup + restore</h3>
+            <span class="pill soft">safe copy</span>
+          </div>
+          <p class="tiny-note">Save a full backup file, then import it later on the same phone or a new one.</p>
+          <div class="button-row compact">
+            <button type="button" class="secondary-btn" id="exportBackupBtn">Export full backup</button>
+            <label class="file-btn" for="importBackupInput">Import backup</label>
+            <input type="file" id="importBackupInput" accept="application/json,.json" hidden />
+          </div>
+        </div>
+
+        <div class="card fade-up delay-5">
+          <div class="card-head">
+            <h3>Mini widget shortcuts</h3>
+            <span class="pill soft">pin separately</span>
+          </div>
+          <div class="widget-row">
+            <a class="widget-tile" href="daily.html">
+              <strong>🌼 Daily</strong>
+              <span>Open routine directly</span>
+            </a>
+            <a class="widget-tile" href="log.html">
+              <strong>📝 Log</strong>
+              <span>Jump right into tracking</span>
+            </a>
+            <a class="widget-tile" href="attack.html">
+              <strong>🧊 Attack</strong>
+              <span>Quick relief screen</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-log" class="screen">
+        <div class="card fade-up">
+          <div class="card-head">
+            <h2>📝 Log</h2>
+            <button class="ghost-btn small" data-home>Home</button>
+          </div>
+
+          <form id="logForm" class="stack">
+            <label>
+              <span>Date</span>
+              <input type="date" id="logDate" required />
+            </label>
+
+            <label>
+              <span>Did little one have a migraine?</span>
+              <div class="segmented">
+                <input type="radio" name="hadMigraine" id="migraineYes" value="Yes" checked />
+                <label for="migraineYes">Yes</label>
+                <input type="radio" name="hadMigraine" id="migraineNo" value="No" />
+                <label for="migraineNo">No</label>
+              </div>
+            </label>
+
+            <label>
+              <span>Severity 1–10</span>
+              <input type="range" min="1" max="10" value="5" id="severityRange" />
+              <div class="range-row">
+                <small>1</small>
+                <strong id="severityValue">5</strong>
+                <small>10</small>
+              </div>
+            </label>
+
+            <label>
+              <span>Possible trigger</span>
+              <input type="text" id="logTrigger" placeholder="Stress, sleep, skipped meal..." />
+            </label>
+
+            <label>
+              <span>Notes</span>
+              <textarea id="logNotes" rows="4" placeholder="Anything little one wants to remember?"></textarea>
+            </label>
+
+            <div class="button-row">
+              <button type="submit" class="primary-btn">Save log</button>
+              <button type="button" class="secondary-btn" id="resetFormBtn">Reset form</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card fade-up delay-1">
+          <div class="card-head">
+            <h3>Recent entries</h3>
+            <span class="pill" id="recentLogCount">0</span>
+          </div>
+          <div class="button-row compact">
+            <button type="button" class="secondary-btn" id="exportJsonBtn">Export JSON</button>
+            <button type="button" class="secondary-btn" id="exportCsvBtn">Export CSV</button>
+            <button type="button" class="danger-btn" id="clearLogsBtn">Clear all</button>
+          </div>
+          <div id="logList" class="list-stack empty-state">No logs yet.</div>
+        </div>
+      </section>
+
+      <section id="screen-attack" class="screen">
+        <div class="card fade-up">
+          <div class="card-head">
+            <h2>🧊 Attack</h2>
+            <button class="ghost-btn small" data-home>Home</button>
+          </div>
+
+          <div class="checklist" id="attackChecklist">
+            <label class="check-item"><input type="checkbox" data-attack-item="Drink water" /> <span>Drink water</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Small caffeine if early" /> <span>Small caffeine if early</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Ice pack" /> <span>Ice pack</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Dark quiet room" /> <span>Dark quiet room</span></label>
+            <label class="check-item"><input type="checkbox" data-attack-item="Rest eyes" /> <span>Rest eyes</span></label>
+          </div>
+
+          <div class="timer-box cute-gradient pulse-soft">
+            <p class="hero-kicker">20 minute reset for little one</p>
+            <div id="timerDisplay" class="timer-display">20:00</div>
+            <div class="button-row">
+              <button type="button" class="primary-btn" id="timerStartBtn">Start timer</button>
+              <button type="button" class="secondary-btn" id="timerResetBtn">Reset</button>
+            </div>
+          </div>
+
+          <div class="info-note">
+            <strong>Do Not Disturb:</strong> iPhone web apps can’t switch that on directly, so this app shows the reminder only.
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-daily" class="screen">
+        <div class="card fade-up">
+          <div class="card-head">
+            <h2>🌼 Daily</h2>
+            <button class="ghost-btn small" data-home>Home</button>
+          </div>
+
+          <p class="tiny-note" id="dailyDateLabel"></p>
+
+          <div class="checklist" id="dailyChecklist">
+            <label class="check-item"><input type="checkbox" data-daily-item="Morning water" /> <span>Morning water</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Breakfast" /> <span>Breakfast</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Caffeine around 10 AM" /> <span>Caffeine around 10 AM</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Lunch" /> <span>Lunch</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Dinner" /> <span>Dinner</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Topiramate at night" /> <span>Topiramate at night</span></label>
+            <label class="check-item"><input type="checkbox" data-daily-item="Magnesium at night" /> <span>Magnesium at night</span></label>
+          </div>
+
+          <div class="button-row">
+            <button type="button" class="secondary-btn" id="resetDailyBtn">Reset today</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-screen="home">Home</button>
+      <button class="nav-btn" data-screen="log">Log</button>
+      <button class="nav-btn" data-screen="attack">Attack</button>
+      <button class="nav-btn" data-screen="daily">Daily</button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
